@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { json } from 'd3-fetch'
-import Test from './Test';
+import Card from './Card';
 import { deserializer } from '../util/incidents';
 
 const url = './data/persons.json'
@@ -31,7 +31,14 @@ export function FetchIncidentsData() {
 
   return (
     <>
-      <Test data={rawData} />
+      {rawData.map(d => 
+        <Card>
+          <p>{d.name}</p>
+          <ul>
+            <li>{d.country}</li>
+          </ul>
+        </Card>
+      )}
     </>
   )
 }
