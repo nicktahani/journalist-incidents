@@ -1,13 +1,11 @@
 import React from 'react';
 import '../css/Card.css'
 
-export default function Card({ children }) { 
-  // console.log('d', data)
-  
-  
+export default function Card({ title, children }) { 
   return (
     <div className='card'>
-      {children}
+        {title ? <h3>{title}</h3> : ''}
+        {children}
     </div>
   )
 }

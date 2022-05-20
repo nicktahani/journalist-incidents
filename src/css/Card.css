@@ -1,5 +1,23 @@
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #fff;
   border-radius: 5px;
   /* box-shadow: 1px 1px 3px #ccc; */
+  margin: 1em;
+  width: fit-content;
+  padding: 1em;
+  text-align: center;
+  min-height: 150px;
+  min-width: 150px;
+}
+
+.card h3 {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.card h2 {
+  text-transform: uppercase;
 }

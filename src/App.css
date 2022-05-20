@@ -1,10 +1,11 @@
 .App {
-  margin: 2em;
+  /* margin: 2em; */
   
 }
 
 body {
-  background-color: #edeef0;
+  /* background-color: #edeef0; */
+  background-color: #ccc;
 }
 
 .header {

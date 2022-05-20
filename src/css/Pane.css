@@ -1,0 +1,11 @@
+.pane {
+  min-height: 100vh;
+  min-width: 20vw;
+  background-color: #fff;
+  width: fit-content;
+  text-align: center;
+}
+
+.pane h2 {
+  margin: 0;
+}
