@@ -24,7 +24,7 @@ export function FetchIncidentsData() {
       })
   }, [])
   
-  // console.log(data)
+  // console.log(rawData)
 
   if (isFetching) {
     return <div>Loading...</div>
@@ -33,17 +33,14 @@ export function FetchIncidentsData() {
   return (
     <>
       <Pane title='anti-press incidents'>
-        <select name="cars" id="cars">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
+        <Card title='updated'>
+           <i>{rawData.updated}</i>
+        </Card>
       </Pane>
-      <Card title={rawData.length}>
+      <Card title={rawData.incidents.length}>
         total incidents
       </Card>
-      {rawData && rawData.map(d => 
+      {rawData.incidents.map(d => 
         <Card>
           <span>{d.name}</span>
           <ul>

@@ -1,6 +1,9 @@
-const deserializer = rows => {
+import { DateTime } from 'luxon';
 
-  return rows.data.map(d => {
+const deserializer = rows => {
+  const updatedAt = DateTime.fromISO(rows.meta.createdOn).toFormat('cccc ff ZZZZ')
+
+  const incidents = rows.data.map(d => {
     const entries = Object.assign(...d.entries)
     // return Object.assign(d, entries)
     return {
@@ -13,6 +16,11 @@ const deserializer = rows => {
       year: entries.startDisplay.split(',').map(d => d.trim())[1]
     }
   })
+
+  return {
+    updated: updatedAt, 
+    incidents
+  }
 }
 
 export { deserializer }
