@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-const deserializer = rows => {
+export function deserializer(rows) {
   const updatedAt = DateTime.fromISO(rows.meta.createdOn).toFormat('cccc ff ZZZZ')
 
   const incidents = rows.data.map(d => {
@@ -18,9 +18,21 @@ const deserializer = rows => {
   })
 
   return {
-    updated: updatedAt, 
+    updatedAt, 
     incidents
   }
 }
 
-export { deserializer }
+export function getCountryCounts(data) {
+  let result = {}
+  for (let row of data) {
+    if (!result[row.country]) {
+      result[row.country] = 0
+    }
+    result[row.country]++
+  }
+  return Object.keys(result)
+    .map(country => ({country, count: result[country]}))
+    .sort((a, b) => b.count - a.count)
+    // .slice(0, 10)
+}

@@ -3,6 +3,7 @@ import { json } from 'd3-fetch'
 import Card from './Card';
 import { deserializer } from '../util/incidents';
 import Pane from './Pane';
+import Table from './Table';
 
 const url = './data/persons.json'
 
@@ -24,7 +25,7 @@ export function FetchIncidentsData() {
       })
   }, [])
   
-  // console.log(rawData)
+  console.log(rawData)
 
   if (isFetching) {
     return <div>Loading...</div>
@@ -34,10 +35,13 @@ export function FetchIncidentsData() {
     <>
       <Pane title='anti-press incidents'>
         <Card title='updated'>
-           <i>{rawData.updated}</i>
+           <i>{rawData.updatedAt}</i>
+        </Card>
+        <Card title='incidents at a glance (country)'>
+          <Table data={rawData.incidents} />
         </Card>
       </Pane>
-      <Card title={rawData.incidents.length}>
+      {/* <Card title={rawData.incidents.length}>
         total incidents
       </Card>
       {rawData.incidents.map(d => 
@@ -48,7 +52,7 @@ export function FetchIncidentsData() {
             <li>{d.title}</li>
           </ul>
         </Card>
-      )}
+      )} */}
     </>
   )
 }
