@@ -45,13 +45,15 @@ export function FetchIncidentsData() {
         {/* <Card title={rawData.incidents.length}>
           total incidents
         </Card> */}
-        {console.log('h', getCounts(rawData.incidents, 'typeOfDeath'))
+
+        {getCounts(rawData.incidents, 'typeOfDeath')
+          .filter(d => d.prop !== 'null' && d.prop !== 'Unknown')
+          .map(d => 
+            <Card title={d.count}>
+              {d.prop}
+            </Card>
+          )
         }
-        {getCounts(rawData.incidents, 'typeOfDeath').map(d => 
-          <Card title={d.count}>
-            {d.prop}
-          </Card>
-        )}
       </div>
     </div>
   )
