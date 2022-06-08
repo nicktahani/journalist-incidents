@@ -1,14 +1,21 @@
 import React from 'react';
 import '../css/Table.css'
-import { getCountryCounts } from '../util/incidents';
+import { getCounts } from '../util/incidents';
 
 export default function Table({ data }) {
-  const countryCounts = getCountryCounts(data).slice(0, 10)
+  
+  const counts = getCounts(data, 'country').slice(0, 10)
+
+  // console.log(getCounts(data, 'status'))
+  // console.log(counts)
+  
+  
+  
   
   return (
     <ul className='list'>
-      {countryCounts.map(d => 
-        <li className='list-item'>{`${d.count} ${d.country}`}</li>
+      {counts.map(d => 
+        <li className='list-item'>{`${d.count} ${d.prop}`}</li>
       )}
     </ul>
   )

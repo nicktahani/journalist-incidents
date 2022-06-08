@@ -23,16 +23,16 @@ export function deserializer(rows) {
   }
 }
 
-export function getCountryCounts(data) {
+export function getCounts(data, prop) {
   let result = {}
   for (let row of data) {
-    if (!result[row.country]) {
-      result[row.country] = 0
+    if (!result[row[prop]]) {
+      result[row[prop]] = 0
     }
-    result[row.country]++
+    result[row[prop]]++
   }
   return Object.keys(result)
-    .map(country => ({country, count: result[country]}))
+    .map(prop => ({prop, count: result[prop]}))
     .sort((a, b) => b.count - a.count)
     // .slice(0, 10)
 }

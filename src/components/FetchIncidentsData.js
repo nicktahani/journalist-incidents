@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { json } from 'd3-fetch'
 import Card from './Card';
-import { deserializer } from '../util/incidents';
+import { deserializer, getCounts } from '../util/incidents';
 import Pane from './Pane';
 import Table from './Table';
 
@@ -25,14 +25,14 @@ export function FetchIncidentsData() {
       })
   }, [])
   
-  console.log(rawData)
+  // console.log(rawData)
 
   if (isFetching) {
     return <div>Loading...</div>
   }
 
   return (
-    <>
+    <div className='wrapper' style={{display: 'flex'}}>
       <Pane title='anti-press incidents'>
         <Card title='updated'>
            <i>{rawData.updatedAt}</i>
@@ -41,18 +41,18 @@ export function FetchIncidentsData() {
           <Table data={rawData.incidents} />
         </Card>
       </Pane>
-      {/* <Card title={rawData.incidents.length}>
-        total incidents
-      </Card>
-      {rawData.incidents.map(d => 
-        <Card>
-          <span>{d.name}</span>
-          <ul>
-            <li>{d.country}</li>
-            <li>{d.title}</li>
-          </ul>
-        </Card>
-      )} */}
-    </>
+      <div className='main-dash'>
+        {/* <Card title={rawData.incidents.length}>
+          total incidents
+        </Card> */}
+        {console.log('h', getCounts(rawData.incidents, 'typeOfDeath'))
+        }
+        {getCounts(rawData.incidents, 'typeOfDeath').map(d => 
+          <Card title={d.count}>
+            {d.prop}
+          </Card>
+        )}
+      </div>
+    </div>
   )
 }

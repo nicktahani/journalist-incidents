@@ -13,3 +13,7 @@
 .pane > div {
   margin: auto;
 }
+
+ul.list > li {
+  text-align: left;
+}
