@@ -1,7 +1,7 @@
 import React from 'react';
 import { json } from 'd3-fetch'
 import Card from './Card';
-import { deserializer, getCounts } from '../util/incidents';
+import { deserializer, getCounts, countsByType } from '../util/incidents';
 import Pane from './Pane';
 import Table from './Table';
 import useFetch from './useFetch';
