@@ -31,8 +31,11 @@ export function getCounts(data, prop) {
     }
     result[row[prop]]++
   }
-  return Object.keys(result)
+  const total = Object.values(result).reduce((a, b) => a + b)
+  const count_obj = Object.keys(result)
     .map(prop => ({prop, count: result[prop]}))
     .sort((a, b) => b.count - a.count)
     // .slice(0, 10)
+
+    return [...count_obj, {prop: 'total', count: total}]
 }

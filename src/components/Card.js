@@ -4,7 +4,7 @@ import '../css/Card.css'
 export default function Card({ title, children }) { 
   return (
     <div className='card'>
-        {title ? <h2 className='card-title'>{title}</h2> : ''}
+        {title ? <span className='card-title'>{title}</span> : ''}
         {children}
     </div>
   )

@@ -1,32 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { json } from 'd3-fetch'
 import Card from './Card';
 import { deserializer, getCounts } from '../util/incidents';
 import Pane from './Pane';
 import Table from './Table';
+import useFetch from './useFetch';
 
 const url = './data/persons.json'
 
 export function FetchIncidentsData() {
-  const [error, setError] = useState(false)
-  const [rawData, setRawData] = useState(null)
-  const [isFetching, setIsFetching] = useState(true)
-
-  useEffect(() => {
-    json(url)
-      .then(deserializer)
-      .then(data => {
-        setIsFetching(false)
-        setRawData(data)
-      })
-      .catch(err => {
-        setIsFetching(false)
-        setError(err)
-      })
-  }, [])
+  const { data, error, isFetching } = useFetch(url, json, deserializer)
   
-  // console.log(rawData)
-
   if (isFetching) {
     return <div>Loading...</div>
   }
@@ -35,25 +19,24 @@ export function FetchIncidentsData() {
     <div className='wrapper' style={{display: 'flex'}}>
       <Pane title='anti-press incidents'>
         <Card title='updated'>
-           <i>{rawData.updatedAt}</i>
+           <i>{data.updatedAt}</i>
         </Card>
-        <Card title='incidents at a glance (country)'>
-          <Table data={rawData.incidents} />
+        <Card title='top 10 incidents by country'>
+          <Table data={data.incidents} />
         </Card>
       </Pane>
       <div className='main-dash'>
-        {/* <Card title={rawData.incidents.length}>
-          total incidents
-        </Card> */}
-
-        {getCounts(rawData.incidents, 'typeOfDeath')
-          .filter(d => d.prop !== 'null' && d.prop !== 'Unknown')
-          .map(d => 
-            <Card title={d.count}>
-              {d.prop}
-            </Card>
-          )
-        }
+        <div className='stat-cards' style={{display: 'flex'}}>
+          {getCounts(data.incidents, 'typeOfDeath')
+            .filter(d => d.prop !== 'null' && d.prop !== 'Unknown')
+            .map(d => 
+              <Card title={d.count}>
+                {d.prop}
+              </Card>
+            )
+          }
+        </div>
+        <Card />
       </div>
     </div>
   )

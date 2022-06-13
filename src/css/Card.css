@@ -12,12 +12,3 @@
   min-height: 150px;
   min-width: 150px;
 }
-
-.card h3 {
-  text-transform: capitalize;
-  margin: 0;
-}
-
-.card h2 {
-  text-transform: uppercase;
-}
