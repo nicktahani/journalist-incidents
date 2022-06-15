@@ -1,10 +1,11 @@
 import React from 'react';
 import { json } from 'd3-fetch'
 import Card from './Card';
-import { deserializer, getCounts, countsByType } from '../util/incidents';
+import { deserializer, getCounts } from '../util/incidents';
 import Pane from './Pane';
 import Table from './Table';
 import useFetch from './useFetch';
+import Map from './Map'
 
 const url = './data/persons.json'
 
@@ -36,7 +37,9 @@ export function FetchIncidentsData() {
             )
           }
         </div>
-        <Card />
+        <Card>
+          <Map width={800} height={500} />
+        </Card>
       </div>
     </div>
   )
