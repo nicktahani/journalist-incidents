@@ -38,7 +38,7 @@ export function FetchIncidentsData() {
           }
         </div>
         <Card>
-          <Map width={800} height={500} />
+          <Map data={data} width={750} height={450} />
         </Card>
       </div>
     </div>
