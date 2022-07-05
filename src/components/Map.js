@@ -5,6 +5,7 @@ import { scaleSequential } from 'd3-scale'
 import { interpolateYlGn } from 'd3-scale-chromatic'
 import { feature } from 'topojson-client'
 import useFetch from './useFetch'
+import { getCountsByYear } from '../util/map'
 
 const url = '/data/countries-50m.json'
 
