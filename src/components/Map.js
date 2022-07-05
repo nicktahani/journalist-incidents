@@ -9,17 +9,19 @@ import { getCountsByYear } from '../util/map'
 
 const url = '/data/countries-50m.json'
 
-const color = scaleSequential([0, max(mappedCountryCounts.values())], interpolateYlGn)
-
-console.log(color)
-
-
 const proj = geoMercator()
   .scale(170)
 
 export default function Map({ data, ...mapProps }) {
   const [geo, setGeo] = useState([])
+
+  const counts_by_year = getCountsByYear(data)
   
+  // console.log(getCountsByYear(data)['1992'])
+  const color_counts = Object.values(counts_by_year['1992']).map(d => d.count) 
+  
+  const color = scaleSequential([0, max(color_counts)], interpolateYlGn)
+
   //set fill with mapped values
   //create a drop down and get value => pass to Map
 
@@ -51,11 +53,15 @@ export default function Map({ data, ...mapProps }) {
   return (
     <svg {...mapProps} viewBox='0 -200 910 670'>
       <g>
-        {geo.map((d, i) => (
+        {geo && geo.map((d, i) => (
           <path
             key={ `path-${ i }` }
             d={ geoPath().projection(proj)(d) }
-            fill=''
+            fill={
+              counts_by_year['1992']?.[d.properties.name]?.count 
+                ? color(counts_by_year['1992']?.[d.properties.name]?.count) 
+                : '#ccc'
+            }
             stroke='#fff'
             strokeWidth={ 1 }
           />
