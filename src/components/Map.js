@@ -12,18 +12,21 @@ const url = '/data/countries-50m.json'
 const proj = geoMercator()
   .scale(170)
 
-export default function Map({ data, ...mapProps }) {
+export default function Map({ data, year, ...mapProps }) {
   const [geo, setGeo] = useState([])
 
   const counts_by_year = getCountsByYear(data)
   
   // console.log(getCountsByYear(data)['1992'])
-  const color_counts = Object.values(counts_by_year['1992']).map(d => d.count) 
+  const color_counts = Object.values(counts_by_year[year]).map(d => d.count) 
   
   const color = scaleSequential([0, max(color_counts)], interpolateYlGn)
   
   //set fill with mapped values
   //create a drop down and get value => pass to Map
+
+  //define onSelectresult from Dropdown in fetch component, pass here
+  //pass value to [date] (replace '1992')
 
   useEffect(() => {
     async function fetchData() {
@@ -58,8 +61,8 @@ export default function Map({ data, ...mapProps }) {
             key={ `path-${ i }` }
             d={ geoPath().projection(proj)(d) }
             fill={
-              counts_by_year['1992']?.[d.properties.name]?.count 
-                ? color(counts_by_year['1992']?.[d.properties.name]?.count) 
+              counts_by_year[year]?.[d.properties.name]?.count 
+                ? color(counts_by_year[year]?.[d.properties.name]?.count) 
                 : '#ccc'
             }
             stroke='#fff'

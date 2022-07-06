@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { json } from 'd3-fetch'
 import Card from './Card';
 import { deserializer, getCounts } from '../util/incidents';
@@ -12,12 +12,17 @@ const url = './data/persons.json'
 
 export function FetchIncidentsData() {
   const { data, error, isFetching } = useFetch(url, json, deserializer)
+  const [year, setYear] = useState('1992') //for dropdown
   
   if (isFetching) {
     return <div>Loading...</div>
   }
 
-  console.log(data)
+  const onSelectResult = result => {
+    setYear(result)
+  }
+
+  // console.log(data)
   
 
   return (
@@ -41,9 +46,9 @@ export function FetchIncidentsData() {
             )
           }
         </div>
-        <Dropdown data={data.incidents} loading={isFetching} />
+        <Dropdown data={data.incidents} loading={isFetching} onSelectResult={onSelectResult} />
         <Card>
-          <Map data={data.incidents} width={750} height={450} />
+          <Map data={data.incidents} width={750} height={450} year={year} />
         </Card>
       </div>
     </div>

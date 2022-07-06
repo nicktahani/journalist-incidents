@@ -15,7 +15,10 @@ export default function Dropdown({ data, loading, onSelectResult }) {
   
   return (
     <>
-      <select disabled ={loading} onChange={handleSelectResult}>
+      <select 
+        disabled={loading} 
+        onChange={handleSelectResult}
+      >
        {years.map(year => 
           <option 
             key={year}
