@@ -21,7 +21,7 @@ export default function Map({ data, ...mapProps }) {
   const color_counts = Object.values(counts_by_year['1992']).map(d => d.count) 
   
   const color = scaleSequential([0, max(color_counts)], interpolateYlGn)
-
+  
   //set fill with mapped values
   //create a drop down and get value => pass to Map
 

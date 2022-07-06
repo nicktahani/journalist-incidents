@@ -6,6 +6,7 @@ import Pane from './Pane';
 import Table from './Table';
 import useFetch from './useFetch';
 import Map from './Map'
+import Dropdown from './Dropdown';
 
 const url = './data/persons.json'
 
@@ -15,6 +16,9 @@ export function FetchIncidentsData() {
   if (isFetching) {
     return <div>Loading...</div>
   }
+
+  console.log(data)
+  
 
   return (
     <div className='wrapper' style={{display: 'flex'}}>
@@ -37,6 +41,7 @@ export function FetchIncidentsData() {
             )
           }
         </div>
+        <Dropdown data={data.incidents} loading={isFetching} />
         <Card>
           <Map data={data.incidents} width={750} height={450} />
         </Card>
