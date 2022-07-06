@@ -15,18 +15,12 @@ const proj = geoMercator()
 export default function Map({ data, year, ...mapProps }) {
   const [geo, setGeo] = useState([])
 
-  const counts_by_year = getCountsByYear(data)
+  const countsByYear = getCountsByYear(data)
   
   // console.log(getCountsByYear(data)['1992'])
-  const color_counts = Object.values(counts_by_year[year]).map(d => d.count) 
+  const colorCounts = Object.values(countsByYear[year]).map(d => d.count) 
   
-  const color = scaleSequential([0, max(color_counts)], interpolateYlGn)
-  
-  //set fill with mapped values
-  //create a drop down and get value => pass to Map
-
-  //define onSelectresult from Dropdown in fetch component, pass here
-  //pass value to [date] (replace '1992')
+  const color = scaleSequential([0, max(colorCounts)], interpolateYlGn)
 
   useEffect(() => {
     async function fetchData() {
@@ -50,25 +44,22 @@ export default function Map({ data, year, ...mapProps }) {
   }, [])
 
   // const {data, error, isFetching} = useFetch(url, fetch, undefined)
-  
-  
 
   return (
     <svg {...mapProps} viewBox='0 -200 910 670'>
       <g>
-        {geo && geo.map((d, i) => (
-          <path
-            key={ `path-${ i }` }
-            d={ geoPath().projection(proj)(d) }
-            fill={
-              counts_by_year[year]?.[d.properties.name]?.count 
-                ? color(counts_by_year[year]?.[d.properties.name]?.count) 
-                : '#ccc'
-            }
-            stroke='#fff'
-            strokeWidth={ 1 }
-          />
-        ))
+        {geo && geo.map((d, i) => {
+          const year_val = countsByYear[year]?.[d.properties.name]?.count
+          return (
+            <path
+              key={ `path-${ i }` }
+              d={ geoPath().projection(proj)(d) }
+              fill={ year_val ? color(year_val) : '#ccc' }
+              stroke='#fff'
+              strokeWidth={ 1 }
+            />
+          )
+        })
         }
       </g>  
     </svg>
