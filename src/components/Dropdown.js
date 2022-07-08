@@ -26,8 +26,7 @@ export default function Dropdown({ data, loading, onSelectResult }) {
           >
             {year}
           </option>
-        )
-       } 
+        )} 
       </select>
     </>
   )

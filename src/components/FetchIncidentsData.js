@@ -46,9 +46,18 @@ export function FetchIncidentsData() {
             )
           }
         </div>
-        <Dropdown data={data.incidents} loading={isFetching} onSelectResult={onSelectResult} />
+        <Dropdown 
+          data={data.incidents} 
+          loading={isFetching} 
+          onSelectResult={onSelectResult} 
+        />
         <Card>
-          <Map data={data.incidents} width={750} height={450} year={year} />
+          <Map 
+            data={data.incidents} 
+            width={750} 
+            height={450} 
+            year={year} 
+          />
         </Card>
       </div>
     </div>
