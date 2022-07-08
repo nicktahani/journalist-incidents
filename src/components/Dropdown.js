@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function Dropdown({ data, loading, onSelectResult }) {
   const [selected, setSelected] = useState('1992')
   
-  const years = [...new Set(data.filter(d => d.year !== undefined).map(d => d.year))]
+  const years = [...new Set(data.map(d => d.year))]
 
   const handleSelectResult = e => {
     console.log(e.target.value)

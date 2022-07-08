@@ -38,9 +38,8 @@ export default function Map({ data, year, ...mapProps }) {
     }
 
     fetchData()
-    // console.log('g', geo)
     
-
+    
   }, [])
 
   // const {data, error, isFetching} = useFetch(url, fetch, undefined)

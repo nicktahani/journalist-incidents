@@ -6,12 +6,6 @@ export default function Table({ data }) {
   
   const counts = getCounts(data, 'country').slice(0, 10)
 
-  // console.log(getCounts(data, 'status'))
-  // console.log(counts)
-  
-  
-  
-  
   return (
     <ul className='list'>
       {counts.map(d => 

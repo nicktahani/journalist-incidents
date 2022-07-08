@@ -5,6 +5,7 @@ export function deserializer(rows) {
 
   const incidents = rows.data.map(d => {
     const entries = Object.assign(...d.entries)
+    if (entries.country === 'USA') entries.country = 'United States of America'
     // return Object.assign(d, entries)
     return {
       id: d.id,
@@ -13,7 +14,7 @@ export function deserializer(rows) {
       title: d.type,
       page: d.mtpage,
       ...entries,
-      year: entries.startDisplay.split(',').map(d => d.trim())[1]
+      year: entries.endDisplay.split(',').map(d => d.trim())[1]
     }
   })
 
