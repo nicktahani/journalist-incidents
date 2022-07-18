@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   background-color: #fff;
-  /* border-radius: 5px; */
+  border-radius: 10px;
   /* box-shadow: 1px 1px 3px #ccc; */
   margin: 1em;
   width: fit-content;

@@ -6,7 +6,7 @@ export default function Dropdown({ data, loading, onSelectResult }) {
   const years = [...new Set(data.map(d => d.year))]
 
   const handleSelectResult = e => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     const { value } = e.target
     if (value === selected) return
     setSelected(value)

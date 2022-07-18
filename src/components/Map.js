@@ -3,7 +3,6 @@ import { geoMercator, geoPath } from 'd3-geo'
 import { max } from 'd3-array'
 import { scaleSequential } from 'd3-scale'
 import { interpolateYlGn } from 'd3-scale-chromatic'
-import { rollup } from 'd3-array'
 import { feature } from 'topojson-client'
 import useFetch from './useFetch'
 import { getCountsByYear } from '../util/map'
@@ -17,8 +16,6 @@ export default function Map({ data, year, ...mapProps }) {
   const [geo, setGeo] = useState([])
 
   const countsByYear = getCountsByYear(data)
-
-  const rolled = rollup(data, v => v.length, d => d.year, d => d.country)
   
   // console.log(getCountsByYear(data)['1992'])
   const colorCounts = Object.values(countsByYear[year]).map(d => d.count) 
@@ -51,7 +48,7 @@ export default function Map({ data, year, ...mapProps }) {
     <svg {...mapProps} viewBox='0 -200 910 670'>
       <g>
         {geo && geo.map((d, i) => {
-          const year_val = rolled.get(year).get(d.properties.name)
+          const year_val = countsByYear[year]?.[d.properties.name]?.count
           return (
             <path
               key={ `path-${ i }` }

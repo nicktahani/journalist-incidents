@@ -7,6 +7,7 @@ import Table from './Table';
 import useFetch from './useFetch';
 import Map from './Map'
 import Dropdown from './Dropdown';
+import BarChart from './BarChart';
 
 const url = './data/persons.json'
 
@@ -22,7 +23,7 @@ export function FetchIncidentsData() {
     setYear(result)
   }
 
-  // console.log(data)
+  // console.log(getCounts(data.incidents, 'country'))
   
 
   return (
@@ -58,6 +59,9 @@ export function FetchIncidentsData() {
             height={450} 
             year={year} 
           />
+        </Card>
+        <Card title={`counts by country in ${year}`}>
+          <BarChart data={data.incidents} year={year} />
         </Card>
       </div>
     </div>
