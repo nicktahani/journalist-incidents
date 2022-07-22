@@ -40,3 +40,7 @@ export function getCounts(data, prop) {
 
     return [...count_obj, {prop: 'total', count: total}]
 }
+
+function getChartData(data, year) {
+  
+}
