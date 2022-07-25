@@ -7,9 +7,7 @@ export function getCountsByYear(data) {
     return c
   }, {})
 
-  const { undefined, ...filtered } = counts
-
-  return filtered
+  return counts
 }
 
 export function countryCountsByYear(data) {
@@ -21,7 +19,5 @@ export function countryCountsByYear(data) {
     return c
   }, {})
 
-  const { undefined, ...filtered } = counts
-
-  return filtered
+  return counts
 }

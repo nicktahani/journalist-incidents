@@ -4,32 +4,28 @@ import { margin, height, width } from '../util/charts';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { max } from 'd3-array';
 
-export default function BarChart({ data, year }) {
-  const chartData = Object.entries(getCountsByYear(data)[year])
-  console.log(Object.values(countryCountsByYear(data)[year]))
-  
-  const xDomain = Object.keys(getCountsByYear(data)[year])
-  const yDomain = max(Object.values(getCountsByYear(data)[year]).map(({count}) => count))
+export default function BarChart({ data }) {
+  const chartData = Object.entries(data)
 
   const xScale = scaleBand()
-    .domain(xDomain)
+    .domain(Object.keys(data))
     .rangeRound([margin.left, width - margin.right])
     .padding(0.25)
   
   const yScale = scaleLinear()
-    .domain([0, yDomain])
+    .domain([0, max(Object.values(data))])
     .range([height - margin.bottom, margin.top])
     
   
   return (
     <>
       <svg width={width} height={height}>
-        {chartData.map(d => d[1]).map((d, i) => (
+        {chartData.map(d => (
           <rect
-            key={d.country}
-            x={xScale(d.country)}
-            y={yScale(d.count)}
-            height={yScale(0) - yScale(d.count)}
+            key={d[0]}
+            x={xScale(d[0])}
+            y={yScale(d[1])}
+            height={yScale(0) - yScale(d[1])}
             width={xScale.bandwidth()}
             fill='steelblue'
           />
