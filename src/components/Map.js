@@ -10,7 +10,7 @@ import { getCountsByYear } from '../util/map'
 const url = '/data/countries-50m.json'
 
 const proj = geoMercator()
-  .scale(170)
+  .scale(180)
 
 export default function Map({ data, year, ...mapProps }) {
   const [geo, setGeo] = useState([])
@@ -52,6 +52,7 @@ export default function Map({ data, year, ...mapProps }) {
           return (
             <path
               key={ `path-${ i }` }
+              onClick={() => console.log(d.properties.name)}
               d={ geoPath().projection(proj)(d) }
               fill={ year_val ? color(year_val) : '#ccc' }
               stroke='#fff'

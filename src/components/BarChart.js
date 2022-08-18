@@ -3,6 +3,7 @@ import { margin, height, width } from '../util/charts';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { max } from 'd3-array';
 import Axis from './Axis'
+import { axisBottom, axisLeft } from 'd3-axis';
 
 export default function BarChart({ data }) {
   const chartData = Object.entries(data)
@@ -30,7 +31,16 @@ export default function BarChart({ data }) {
             fill='steelblue'
           />
         ))}
-        <Axis transform={`translate(0, ${height - margin.bottom})`} xScale={xScale} />
+        <Axis 
+          transform={`translate(0, ${height - margin.bottom})`} 
+          scale={xScale} 
+          axisType={axisBottom} 
+        />
+        <Axis 
+          transform={`translate(${margin.left}, 0)`}
+          scale={yScale}
+          axisType={axisLeft}
+        /> 
       </svg>
     </>
   )

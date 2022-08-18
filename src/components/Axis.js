@@ -1,28 +1,27 @@
 import React, { useRef, useEffect } from 'react'
 import { select } from 'd3-selection'
-import { axisLeft, axisBottom } from 'd3-axis'
 
-export default function Axis({ transform, xScale, yScale }) {
-  const ref = useRef()
-  const xAxis = useRef()
-  const yAxis = useRef()
+export default function Axis({ transform, scale, axisType }) {
+  // const ref = useRef()
+  const axis = useRef()
+  // const yAxis = useRef()
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!axis.current) return;
     
-    const XaxisGenerator = axisBottom(xScale)
-    // const YaxisGenerator = axisLeft(yScale)
+    const axisGenerator = axisType(scale)
+    // const yAxisGenerator = axisLeft(yScale)
     
-    select(xAxis.current)
-      .call(XaxisGenerator)
+    select(axis.current)
+      .call(axisGenerator)
     
     // select(yAxis.current)
-    //   .call(YaxisGenerator)
-  }, [])
+    //   .call(yAxisGenerator)
+  }, [scale, axisType])
 
   return (
-    <svg ref={ref}>
-      <g ref={xAxis} transform={transform} />
-    </svg>
+    // <svg ref={ref}>
+      <g ref={axis} transform={transform} />
+    // </svg>
   )
 }
