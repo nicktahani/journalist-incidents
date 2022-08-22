@@ -9,7 +9,7 @@ export default function Table({ data }) {
   return (
     <ul className='list'>
       {counts.map(d => 
-        <li className='list-item'>{`${d.count} ${d.prop}`}</li>
+        <li key={d.prop} className='list-item'>{`${d.count} ${d.prop}`}</li>
       )}
     </ul>
   )

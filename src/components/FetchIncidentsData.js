@@ -41,7 +41,7 @@ export function FetchIncidentsData() {
           {getCounts(data.incidents, 'typeOfDeath')
             .filter(d => d.prop !== 'null' && d.prop !== 'Unknown')
             .map(d => 
-              <Card title={d.count}>
+              <Card key={d.prop} title={d.count}>
                 {d.prop}
               </Card>
             )

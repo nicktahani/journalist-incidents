@@ -11,6 +11,7 @@ const url = '/data/countries-50m.json'
 
 const proj = geoMercator()
   .scale(180)
+  .translate([420, 220])
 
 export default function Map({ data, year, ...mapProps }) {
   const [geo, setGeo] = useState([])
