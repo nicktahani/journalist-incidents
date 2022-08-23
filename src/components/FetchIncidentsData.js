@@ -15,6 +15,7 @@ const url = './data/persons.json'
 export function FetchIncidentsData() {
   const { data, error, isFetching } = useFetch(url, json, deserializer)
   const [year, setYear] = useState('1992') //for dropdown
+
   
   if (isFetching) {
     return <div>Loading...</div>

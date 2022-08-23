@@ -6,6 +6,7 @@ import { interpolateYlGn } from 'd3-scale-chromatic'
 import { feature } from 'topojson-client'
 import useFetch from './useFetch'
 import { getCountsByYear } from '../util/map'
+import Modal from './Modal'
 
 const url = '/data/countries-50m.json'
 
@@ -15,6 +16,7 @@ const proj = geoMercator()
 
 export default function Map({ data, year, ...mapProps }) {
   const [geo, setGeo] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const countsByYear = getCountsByYear(data)
   
@@ -46,23 +48,28 @@ export default function Map({ data, year, ...mapProps }) {
   // const {data, error, isFetching} = useFetch(url, fetch, undefined)
 
   return (
-    <svg {...mapProps} viewBox='0 -200 910 670'>
-      <g>
-        {geo && geo.map((d, i) => {
-          const year_val = countsByYear[year]?.[d.properties.name]?.count
-          return (
-            <path
-              key={ `path-${ i }` }
-              onClick={() => console.log(d.properties.name)}
-              d={ geoPath().projection(proj)(d) }
-              fill={ year_val ? color(year_val) : '#ccc' }
-              stroke='#fff'
-              strokeWidth={ 1 }
-            />
-          )
-        })
-        }
-      </g>  
-    </svg>
+    <>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <svg {...mapProps} viewBox='0 -200 910 670'>
+        <g>
+          {geo && geo.map((d, i) => {
+            const year_val = countsByYear[year]?.[d.properties.name]?.count
+            return (
+              <path
+                key={ `path-${ i }` }
+                onClick={() => {
+                  setIsModalOpen(true)
+                }}
+                d={ geoPath().projection(proj)(d) }
+                fill={ year_val ? color(year_val) : '#ccc' }
+                stroke='#fff'
+                strokeWidth={ 1 }
+              />
+            )
+          })
+          }
+        </g>  
+      </svg>
+    </>
   )
 }
