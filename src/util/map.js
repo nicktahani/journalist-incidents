@@ -21,3 +21,9 @@ export function countryCountsByYear(data) {
 
   return counts
 }
+
+export function filterBySelection(data, selected, year) {
+  return data
+    .filter(d => d.year === year)
+    .filter(d => d.country === selected)
+}
