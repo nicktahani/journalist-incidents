@@ -48,7 +48,6 @@ export default function Map({ data, year, ...mapProps }) {
   }, [])  
 
   // const {data, error, isFetching} = useFetch(url, fetch, undefined)
-  
 
   return (
     <>
@@ -75,9 +74,8 @@ export default function Map({ data, year, ...mapProps }) {
               <path
                 key={ `path-${ i }` }
                 onClick={() => {
-                  setIsModalOpen(true)
                   setSelectedCountry(d.properties.name)
-                  
+                  setIsModalOpen(true)
                 }}
                 d={ geoPath().projection(proj)(d) }
                 fill={ year_val ? color(year_val) : '#ccc' }

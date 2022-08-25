@@ -16,7 +16,6 @@ export function FetchIncidentsData() {
   const { data, error, isFetching } = useFetch(url, json, deserializer)
   const [year, setYear] = useState('1992') //for dropdown
 
-  
   if (isFetching) {
     return <div>Loading...</div>
   }
@@ -26,6 +25,7 @@ export function FetchIncidentsData() {
   }
 
   const yearCounts = countryCountsByYear(data.incidents)[year]
+  const years = [...new Set(data.incidents.map(d => d.year))]
   
   return (
     <div className='wrapper' style={{display: 'flex'}}>
@@ -49,8 +49,9 @@ export function FetchIncidentsData() {
           }
         </div>
         <Dropdown 
-          data={data.incidents} 
-          loading={isFetching} 
+          data={years} 
+          loading={isFetching}
+          selected={year} 
           onSelectResult={onSelectResult} 
         />
         <Card>

@@ -38,9 +38,5 @@ export function getCounts(data, prop) {
     .sort((a, b) => b.count - a.count)
     // .slice(0, 10)
 
-    return [...count_obj, {prop: 'total', count: total}]
-}
-
-function getChartData(data, year) {
-  
+  return [...count_obj, {prop: 'total', count: total}]
 }

@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Dropdown({ data, loading, onSelectResult }) {
-  const [selected, setSelected] = useState('1992')
+export default function Dropdown({ data, loading, selected, onSelectResult }) {
   
-  const years = [...new Set(data.map(d => d.year))]
-
   const handleSelectResult = e => {
     // console.log(e.target.value)
     const { value } = e.target
     if (value === selected) return
-    setSelected(value)
     onSelectResult && onSelectResult(value)
   }
   
@@ -19,12 +15,12 @@ export default function Dropdown({ data, loading, onSelectResult }) {
         disabled={loading} 
         onChange={handleSelectResult}
       >
-       {years.map(year => 
+       {data.map(d => 
           <option 
-            key={year}
-            value={year}
+            key={d}
+            value={d}
           >
-            {year}
+            {d}
           </option>
         )} 
       </select>
