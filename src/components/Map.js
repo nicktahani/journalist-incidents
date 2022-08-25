@@ -20,6 +20,7 @@ export default function Map({ data, year, ...mapProps }) {
   const [selectedCountry, setSelectedCountry] = useState(null)
 
   const countsByYear = getCountsByYear(data)
+  const filteredSelection = filterBySelection(data, selectedCountry, year)
   
   // console.log(getCountsByYear(data)['1992'])
   const colorCounts = Object.values(countsByYear[year]).map(d => d.count) 
@@ -51,12 +52,21 @@ export default function Map({ data, year, ...mapProps }) {
 
   return (
     <>
-      <Modal 
-        data={filterBySelection(data, selectedCountry, year)}
+      <Modal
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        selected={selectedCountry}
-      />
+      >
+        <h3>{`Incidents in ${selectedCountry}`}</h3>
+        {filteredSelection.map(d => 
+          <div className='modalCard' key={d.id}>
+            <span>
+              {d.name}
+              <a href={d.page}>CPJ page</a>
+            </span>
+            <p dangerouslySetInnerHTML={{__html: d.body}} />
+          </div>
+        )}
+      </Modal>
       <svg {...mapProps} viewBox='0 -200 910 670'>
         <g>
           {geo && geo.map((d, i) => {
