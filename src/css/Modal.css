@@ -19,4 +19,46 @@
   z-index: 1000;
   overflow-y: auto;
   max-height: calc(100vh - 210px);
+  max-width: 30vw;
+}
+
+.modal a {
+  background-color: #fff;
+  color: #000;
+  padding: .5em 1em;
+  text-decoration: none;
+  border-right: 2px solid #000;
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+  border-top: 2px solid #000;
+  font-size: .75em;
+  padding: 5px;
+  margin: 5px;
+  font-weight: bold;
+}
+
+.modal a:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.modalCard {
+  margin-bottom: 2em;
+}
+
+.modalCard p {
+  font-size: 0.75em;
+}
+
+.closeBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeBtn button {
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  cursor: pointer;
+
 }
