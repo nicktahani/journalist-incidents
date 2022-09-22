@@ -3,7 +3,7 @@ import ReactDom from 'react-dom'
 import '../css/Modal.css'
 
 export default function Modal({ children, isOpen, onClose }) {
-if (!isOpen) return null
+  if (!isOpen) return null
 
   // console.log(data)
   

@@ -22,6 +22,19 @@ export function countryCountsByYear(data) {
   return counts
 }
 
+export function countryCountsByType(data) {
+  const counts = data.reduce((c, { year, country, typeOfDeath }) => {
+    if (!c[year]) c[year] = {}
+    if (!c[year][country]) c[year][country] = {}
+    if (!c[year][country][typeOfDeath]) c[year][country][typeOfDeath] = 0
+    c[year][country][typeOfDeath]++
+
+    return c
+  }, {})
+
+  return counts
+}
+
 export function filterBySelection(data, selected, year) {
   return data
     .filter(d => d.year === year)

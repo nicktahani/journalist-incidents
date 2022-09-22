@@ -7,7 +7,7 @@ import { axisBottom, axisLeft } from 'd3-axis';
 
 export default function BarChart({ data }) {
   const chartData = Object.entries(data)
-
+  
   const xScale = scaleBand()
     .domain(Object.keys(data))
     .rangeRound([margin.left, width - margin.right])

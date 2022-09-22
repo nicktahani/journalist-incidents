@@ -5,16 +5,17 @@ import { deserializer, getCounts } from '../util/incidents';
 import Pane from './Pane';
 import Table from './Table';
 import useFetch from './useFetch';
-import Map from './Map'
+import Map from './Map';
 import Dropdown from './Dropdown';
 import BarChart from './BarChart';
-import { countryCountsByYear } from '../util/map';
+import { countryCountsByYear, countryCountsByType } from '../util/map';
 
 const url = './data/persons.json'
 
 export function FetchIncidentsData() {
   const { data, error, isFetching } = useFetch(url, json, deserializer)
   const [year, setYear] = useState('1992') //for dropdown
+  const [selectedCountry, setSelectedCountry] = useState(null)
 
   if (isFetching) {
     return <div>Loading...</div>
@@ -24,8 +25,17 @@ export function FetchIncidentsData() {
     setYear(result)
   }
 
+  const onSelectCountry = result => {
+    setSelectedCountry(result)
+  }
+
   const yearCounts = countryCountsByYear(data.incidents)[year]
   const years = [...new Set(data.incidents.map(d => d.year))]
+  const totalDeaths = getCounts(data.incidents, 'typeOfDeath')
+    .filter(d => d.prop !== 'null' && d.prop !== 'Unknown')
+  
+  console.log(countryCountsByType(data.incidents)[year])
+  
   
   return (
     <div className='wrapper' style={{display: 'flex'}}>
@@ -39,8 +49,7 @@ export function FetchIncidentsData() {
       </Pane>
       <div className='main-dash'>
         <div className='stat-cards' style={{display: 'flex'}}>
-          {getCounts(data.incidents, 'typeOfDeath')
-            .filter(d => d.prop !== 'null' && d.prop !== 'Unknown')
+          {totalDeaths
             .map(d => 
               <Card key={d.prop} title={d.count}>
                 {d.prop}
@@ -52,14 +61,16 @@ export function FetchIncidentsData() {
           data={years} 
           loading={isFetching}
           selected={year} 
-          onSelectResult={onSelectResult} 
+          onSelectResult={onSelectResult}
         />
         <Card>
           <Map 
-            data={data.incidents} 
+            data={data.incidents}
             width={750} 
             height={450} 
-            year={year} 
+            year={year}
+            selected={selectedCountry}
+            onSelectCountry={onSelectCountry}
           />
         </Card>
         <Card title={`counts by country in ${year}`}>

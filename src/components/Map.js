@@ -5,7 +5,7 @@ import { scaleSequential } from 'd3-scale'
 import { interpolateYlGn } from 'd3-scale-chromatic'
 import { feature } from 'topojson-client'
 import useFetch from './useFetch'
-import { getCountsByYear, filterBySelection } from '../util/map'
+import { getCountsByYear, countryCountsByType, filterBySelection } from '../util/map'
 import Modal from './Modal'
 
 const url = '/data/countries-50m.json'
@@ -14,17 +14,18 @@ const proj = geoMercator()
   .scale(180)
   .translate([420, 220])
 
-export default function Map({ data, year, ...mapProps }) {
+export default function Map({ data, year, selected, onSelectCountry, ...mapProps }) {
   const [geo, setGeo] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedCountry, setSelectedCountry] = useState(null)
+
+  const handleSelectCountry = country => {
+    onSelectCountry && onSelectCountry(country)
+  }
 
   const countsByYear = getCountsByYear(data)
-  const filteredSelection = filterBySelection(data, selectedCountry, year)
-  
-  // console.log(getCountsByYear(data)['1992'])
+  const filteredSelection = filterBySelection(data, selected, year)
+
   const colorCounts = Object.values(countsByYear[year]).map(d => d.count) 
-  
   const color = scaleSequential([0, max(colorCounts)], interpolateYlGn)
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function Map({ data, year, ...mapProps }) {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       >
-        <h3>{`Incidents in ${selectedCountry}`}</h3>
+        <h3>{`Incidents in ${selected}`}</h3>
         {filteredSelection.map(d => 
           <div className='modalCard' key={d.id}>
             <span>
@@ -74,7 +75,7 @@ export default function Map({ data, year, ...mapProps }) {
               <path
                 key={ `path-${ i }` }
                 onClick={() => {
-                  setSelectedCountry(d.properties.name)
+                  handleSelectCountry(d.properties.name)
                   setIsModalOpen(true)
                 }}
                 d={ geoPath().projection(proj)(d) }
