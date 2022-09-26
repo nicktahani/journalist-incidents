@@ -9,6 +9,7 @@ import Map from './Map';
 import Dropdown from './Dropdown';
 import BarChart from './BarChart';
 import { countryCountsByYear, countryCountsByType } from '../util/map';
+import Pie from './Pie';
 
 const url = './data/persons.json'
 
@@ -29,22 +30,23 @@ export function FetchIncidentsData() {
     setSelectedCountry(result)
   }
 
-  const yearCounts = countryCountsByYear(data.incidents)[year]
-  const years = [...new Set(data.incidents.map(d => d.year))]
-  const totalDeaths = getCounts(data.incidents, 'typeOfDeath')
+  const { updatedAt, incidents } = data
+
+  const yearCounts = countryCountsByYear(incidents)[year]
+  const years = [...new Set(incidents.map(d => d.year))]
+  const totalDeaths = getCounts(incidents, 'typeOfDeath')
     .filter(d => d.prop !== 'null' && d.prop !== 'Unknown')
   
-  console.log(countryCountsByType(data.incidents)[year])
-  
-  
+  const countsByDeathType = countryCountsByType(incidents)[year][selectedCountry]
+
   return (
     <div className='wrapper' style={{display: 'flex'}}>
       <Pane title='anti-press incidents'>
         <Card title='updated'>
-           <i>{data.updatedAt}</i>
+           <i>{updatedAt}</i>
         </Card>
         <Card title='top 10 incidents by country'>
-          <Table data={data.incidents} />
+          <Table data={incidents} />
         </Card>
       </Pane>
       <div className='main-dash'>
@@ -65,13 +67,16 @@ export function FetchIncidentsData() {
         />
         <Card>
           <Map 
-            data={data.incidents}
+            data={incidents}
             width={750} 
             height={450} 
             year={year}
             selected={selectedCountry}
             onSelectCountry={onSelectCountry}
           />
+        </Card>
+        <Card>
+          <Pie data={countsByDeathType} />
         </Card>
         <Card title={`counts by country in ${year}`}>
           <BarChart data={yearCounts} />
