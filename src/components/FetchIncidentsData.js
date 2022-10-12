@@ -76,7 +76,11 @@ export function FetchIncidentsData() {
           />
         </Card>
         <Card>
-          <Pie data={countsByDeathType} />
+          <Pie 
+            data={countsByDeathType} 
+            width={400}
+            height={250}
+          />
         </Card>
         <Card title={`counts by country in ${year}`}>
           <BarChart data={yearCounts} />
