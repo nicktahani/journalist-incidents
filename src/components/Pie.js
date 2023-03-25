@@ -7,30 +7,28 @@ import { arc, pie } from 'd3-shape'
 const colors = schemeTableau10
 
 export default function Pie({ data, ...chartProps }) {
-  const colorScale = data && scaleOrdinal(Object.keys(data), colors)
+  const color = data && scaleOrdinal(Object.keys(data), colors)
 
-  const arcs = arc()
+  const pies = pie().value(d => d.value)
+  const pieArcs = data && pies(Object.entries(data).map(d => ({type: d[0], value: d[1]})))
+
+  const arcData = arc()
     .innerRadius( 0.5 * height / 2 )
     .outerRadius( 0.85 * height / 2 )
-
-  const labelArcs = arc()
-    .innerRadius( 0.95 * height / 2 )
-    .outerRadius( 0.95 * height / 2 )
   
-  const keys = data && Object.keys(data)
-  const values = data && Object.values(data)
-  const pies = pie()
-    .value(d => d.value)
-  
-  const pieArcs = pie(Object.entries(data).map(d => ({type: d[0], value: d[1]})))
-
-  console.log(pieArcs)
-    
   return (
     <div>
       <svg {...chartProps}>
-        <g transform={`translate(${ width / 2 }, ${ height / 2 })`}>
-
+        <g transform={`translate(200, 125)`}>
+          {data && pieArcs.map((d, i) => (            
+            <path
+              key={ `path-${ i }` }
+              d={ arcData(d) }
+              stroke='#fff'
+              strokeWidth={ 2 }
+              fill={ color(d.data.type) }
+            />
+          ))}
         </g>
       </svg>
     </div>
