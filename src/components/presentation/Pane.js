@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Pane.css'
+import '../../css/Pane.css'
 
 export default function Pane({ title, children }) {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
-import '../css/Table.css'
-import { getCounts } from '../util/incidents';
+import '../../css/Table.css'
+import { getCounts } from '../../util/incidents';
 
 export default function Table({ data }) {
   

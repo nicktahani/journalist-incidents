@@ -6,6 +6,7 @@
 body {
   /* background-color: #edeef0; */
   background-color: #ccc;
+  text-transform: capitalize;
 }
 
 .header {

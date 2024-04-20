@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { json } from 'd3-fetch'
-import Card from './Card';
+import Card from './presentation/Card';
 import { deserializer, getCounts } from '../util/incidents';
-import Pane from './Pane';
-import Table from './Table';
+import Pane from './presentation/Pane';
+import Table from './presentation/Table';
 import useFetch from './useFetch';
-import Map from './Map';
-import Dropdown from './Dropdown';
-import BarChart from './BarChart';
+import Map from './viz/Map';
+import Dropdown from './presentation/Dropdown';
+import BarChart from './viz/BarChart';
 import { countryCountsByYear, countryCountsByType } from '../util/map';
-import Pie from './Pie';
+import Pie from './viz/Pie'; 
 
 const url = './data/persons.json'
 
@@ -17,6 +17,8 @@ export function FetchIncidentsData() {
   const { data, error, isFetching } = useFetch(url, json, deserializer)
   const [year, setYear] = useState('1992') //for dropdown
   const [selectedCountry, setSelectedCountry] = useState(null)
+
+  const { updatedAt, incidents } = data
 
   if (isFetching) {
     return <div>Loading...</div>
@@ -29,8 +31,6 @@ export function FetchIncidentsData() {
   const onSelectCountry = result => {
     setSelectedCountry(result)
   }
-
-  const { updatedAt, incidents } = data
 
   const yearCounts = countryCountsByYear(incidents)[year]
   const years = [...new Set(incidents.map(d => d.year))]

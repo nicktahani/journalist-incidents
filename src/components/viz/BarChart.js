@@ -1,5 +1,5 @@
 import React from 'react';
-import { margin, height, width } from '../util/charts';
+import { margin, height, width } from '../../util/charts';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { max } from 'd3-array';
 import Axis from './Axis'

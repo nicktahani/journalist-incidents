@@ -4,9 +4,9 @@ import { max } from 'd3-array'
 import { scaleSequential } from 'd3-scale'
 import { interpolateYlGn } from 'd3-scale-chromatic'
 import { feature } from 'topojson-client'
-import useFetch from './useFetch'
-import { getCountsByYear, countryCountsByType, filterBySelection } from '../util/map'
-import Modal from './Modal'
+import useFetch from '../useFetch'
+import { getCountsByYear, countryCountsByType, filterBySelection } from '../../util/map'
+import Modal from '../presentation/Modal'
 
 const url = '/data/countries-50m.json'
 

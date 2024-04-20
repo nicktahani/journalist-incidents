@@ -1,5 +1,5 @@
 import React from 'react'
-import { margin, height, width } from '../util/charts'
+import { margin, height, width } from '../../util/charts'
 import { schemeTableau10 } from 'd3-scale-chromatic'
 import { scaleOrdinal } from 'd3-scale'
 import { arc, pie } from 'd3-shape'
