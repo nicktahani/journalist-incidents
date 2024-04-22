@@ -82,6 +82,7 @@ export default function Map({ data, year, selected, onSelectCountry, ...mapProps
                 fill={ year_val ? color(year_val) : '#ccc' }
                 stroke='#fff'
                 strokeWidth={ 1 }
+                cursor='pointer'
               /> 
             )
           })

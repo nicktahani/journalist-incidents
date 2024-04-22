@@ -15,6 +15,10 @@ export default function Pie({ data, ...chartProps }) {
   const arcData = arc()
     .innerRadius( 0.5 * height / 2 )
     .outerRadius( 0.85 * height / 2 )
+
+    if (!data) {
+      return <span>select a country</span>
+    }
   
   return (
     <div>
@@ -27,6 +31,7 @@ export default function Pie({ data, ...chartProps }) {
               stroke='#fff'
               strokeWidth={ 2 }
               fill={ color(d.data.type) }
+              onClick={() => console.log(d.data.value)}
             />
           ))}
         </g>

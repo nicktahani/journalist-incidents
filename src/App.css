@@ -13,3 +13,11 @@ body {
   text-transform: uppercase;
 }
 
+.viz-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.stat-cards {
+  display: flex;
+}

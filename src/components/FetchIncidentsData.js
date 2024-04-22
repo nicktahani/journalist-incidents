@@ -18,11 +18,12 @@ export function FetchIncidentsData() {
   const [year, setYear] = useState('1992') //for dropdown
   const [selectedCountry, setSelectedCountry] = useState(null)
 
-  const { updatedAt, incidents } = data
 
   if (isFetching) {
     return <div>Loading...</div>
   }
+
+  const { updatedAt, incidents } = data
 
   const onSelectResult = result => {
     setYear(result)
@@ -50,7 +51,7 @@ export function FetchIncidentsData() {
         </Card>
       </Pane>
       <div className='main-dash'>
-        <div className='stat-cards' style={{display: 'flex'}}>
+        <div className='stat-cards'>
           {totalDeaths
             .map(d => 
               <Card key={d.prop} title={d.count}>
@@ -58,17 +59,21 @@ export function FetchIncidentsData() {
               </Card>
             )
           }
+          <Card>
+            <label>select year: </label>
+            <Dropdown 
+              data={years} 
+              loading={isFetching}
+              selected={year} 
+              onSelectResult={onSelectResult}
+            />
+          </Card>
         </div>
-        <Dropdown 
-          data={years} 
-          loading={isFetching}
-          selected={year} 
-          onSelectResult={onSelectResult}
-        />
+        <div className='viz-wrapper'>
         <Card>
           <Map 
             data={incidents}
-            width={750} 
+            width={550} 
             height={450} 
             year={year}
             selected={selectedCountry}
@@ -85,6 +90,7 @@ export function FetchIncidentsData() {
         <Card title={`counts by country in ${year}`}>
           <BarChart data={yearCounts} />
         </Card>
+      </div>
       </div>
     </div>
   )
