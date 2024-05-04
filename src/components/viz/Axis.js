@@ -1,27 +1,33 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useMemo } from 'react'
 import { select } from 'd3-selection'
+import { axisBottom } from 'd3-axis';
 
-export default function Axis({ transform, scale, axisType }) {
-  // const ref = useRef()
-  const axis = useRef()
-  // const yAxis = useRef()
-
-  useEffect(() => {
-    if (!axis.current) return;
-    
-    const axisGenerator = axisType(scale)
-    // const yAxisGenerator = axisLeft(yScale)
-    
-    select(axis.current)
-      .call(axisGenerator)
-    
-    // select(yAxis.current)
-    //   .call(yAxisGenerator)
-  }, [scale, axisType])
+// https://2019.wattenberger.com/blog/react-and-d3#axes
+export default function Axis({ scale }) {
+  const ticks = useMemo(() => {
+    return scale.domain().map((value) => ({
+      value,
+      xOffset: scale(value),
+    }));
+  }, [scale]);
 
   return (
-    // <svg ref={ref}>
-      <g ref={axis} transform={transform} />
-    // </svg>
-  )
+    <>
+      {ticks.map(({ value, xOffset }) => (
+        <g key={value} transform={`translate(${xOffset}, 30)`}>
+          <line y2={6} stroke="currentColor" />
+          <text
+            key={value}
+            style={{
+              fontSize: "10px",
+              textAnchor: "middle",
+              transform: "translateY(25px)rotate(45deg)",
+            }}
+          >
+            {value}
+          </text>
+        </g>
+      ))}
+    </>
+  );
 }

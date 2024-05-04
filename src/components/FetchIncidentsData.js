@@ -52,13 +52,11 @@ export function FetchIncidentsData() {
       </Pane>
       <div className='main-dash'>
         <div className='stat-cards'>
-          {totalDeaths
-            .map(d => 
+          {totalDeaths.map(d => 
               <Card key={d.prop} title={d.count}>
                 {d.prop}
               </Card>
-            )
-          }
+          )}
           <Card>
             <label>select year: </label>
             <Dropdown 
@@ -80,16 +78,18 @@ export function FetchIncidentsData() {
             onSelectCountry={onSelectCountry}
           />
         </Card>
-        <Card>
-          <Pie 
-            data={countsByDeathType} 
-            width={400}
-            height={250}
-          />
-        </Card>
-        <Card title={`counts by country in ${year}`}>
-          <BarChart data={yearCounts} />
-        </Card>
+        <div>
+          <Card>
+            <Pie 
+              data={countsByDeathType} 
+              width={400}
+              height={250}
+            />
+          </Card>
+          <Card title={`counts by country in ${year}`}>
+            <BarChart data={yearCounts} />
+          </Card>
+        </div>
       </div>
       </div>
     </div>

@@ -44,8 +44,6 @@ export default function Map({ data, year, selected, onSelectCountry, ...mapProps
     }
 
     fetchData()
-    
-    
   }, [])  
 
   // const {data, error, isFetching} = useFetch(url, fetch, undefined)
@@ -56,16 +54,22 @@ export default function Map({ data, year, selected, onSelectCountry, ...mapProps
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       >
-        <h3>{`Incidents in ${selected}`}</h3>
-        {filteredSelection.map(d => 
-          <div className='modalCard' key={d.id}>
-            <span>
-              {d.name}
-              <a href={d.page}>CPJ page</a>
-            </span>
-            <p dangerouslySetInnerHTML={{__html: d.body}} />
-          </div>
-        )}
+        {filteredSelection.length ? (
+        <>
+          <h3>{`Incidents in ${selected}`}</h3>
+          {filteredSelection.map(d => (
+            <div className='modalCard' key={d.id}>
+              <span>
+                {d.name}
+                <a href={d.page}>CPJ page</a>
+              </span>
+              <p dangerouslySetInnerHTML={{__html: d.body}} />
+            </div>
+          ))}
+        </>
+      ) : (
+        <span>no data</span>
+      )}
       </Modal>
       <svg {...mapProps} viewBox='0 -200 910 670'>
         <g>
