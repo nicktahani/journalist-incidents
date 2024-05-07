@@ -82,7 +82,7 @@ export function FetchIncidentsData() {
           <Card>
             <Pie 
               data={countsByDeathType} 
-              width={400}
+              width={500}
               height={250}
             />
           </Card>

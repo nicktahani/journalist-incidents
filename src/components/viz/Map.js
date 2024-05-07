@@ -55,21 +55,21 @@ export default function Map({ data, year, selected, onSelectCountry, ...mapProps
         onClose={() => setIsModalOpen(false)} 
       >
         {filteredSelection.length ? (
-        <>
-          <h3>{`Incidents in ${selected}`}</h3>
-          {filteredSelection.map(d => (
-            <div className='modalCard' key={d.id}>
-              <span>
-                {d.name}
-                <a href={d.page}>CPJ page</a>
-              </span>
-              <p dangerouslySetInnerHTML={{__html: d.body}} />
-            </div>
-          ))}
-        </>
-      ) : (
-        <span>no data</span>
-      )}
+          <>
+            <h3>{`Incidents in ${selected}`}</h3>
+            {filteredSelection.map(d => (
+              <div className='modalCard' key={d.id}>
+                <span>
+                  {d.name}
+                  <a href={d.page}>CPJ page</a>
+                </span>
+                <p dangerouslySetInnerHTML={{__html: d.body}} />
+              </div>
+            ))}
+          </>
+        ) : (
+          <span>no data</span>
+        )}
       </Modal>
       <svg {...mapProps} viewBox='0 -200 910 670'>
         <g>

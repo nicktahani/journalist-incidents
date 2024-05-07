@@ -3,11 +3,8 @@ import { useMemo } from 'react';
 import { margin } from '../../util/charts';
 
 export default function AxisLeft({ scale }) {
-  const range = scale.range();
 
   const ticks = useMemo(() => {
-    const height = range[0] - range[1];
-
     return scale.ticks().map((value) => ({
       value,
       yOffset: scale(value),
@@ -18,13 +15,13 @@ export default function AxisLeft({ scale }) {
     <>
       {ticks.map(({ value, yOffset }) => (
         <g key={value} transform={`translate(${margin.top - margin.left}, ${yOffset})`}>
-          <line x2={-6} stroke="currentColor" style={{ textAlign: 'center' }}/>
+          <line x2={-6} stroke='currentColor' />
           <text
             key={value}
             style={{
-              fontSize: "10px",
-              textAnchor: "middle",
-              transform: "translateX(-20px)",
+              fontSize: '10px',
+              textAnchor: 'middle',
+              transform: 'translateX(-20px) translateY(4px)'
             }}
           >
             {value}

@@ -3,14 +3,11 @@ import { margin, height, width } from '../../util/charts';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { extent, max } from 'd3-array';
 import Axis from './Axis'
-import { axisBottom, axisLeft } from 'd3-axis';
+// import { axisBottom, axisLeft } from 'd3-axis';
 import AxisLeft from './AxisLeft';
 
 export default function BarChart({ data }) {
   const chartData = Object.entries(data)
-  const MARGIN = { top: 30, right: 30, bottom: 50, left: 50 };
-  // const boundsWidth = width - MARGIN.right - MARGIN.left;
-  const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
   const xScale = scaleBand()
     .domain(Object.keys(data))
@@ -20,7 +17,6 @@ export default function BarChart({ data }) {
   const yScale = scaleLinear()
     .domain([0, max(Object.values(data))])
     .range([height - margin.bottom, margin.top])
-    console.log(extent(yScale.domain()))
 
   return (
     <>
