@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { truncateStr } from '../../util/helpers';
 
 // https://2019.wattenberger.com/blog/react-and-d3#axes
 export default function Axis({ scale }) {
@@ -19,10 +20,10 @@ export default function Axis({ scale }) {
             style={{
               fontSize: '10px',
               textAnchor: 'middle',
-              transform: 'translateY(25px)rotate(45deg)'
+              transform: 'translateY(25px)rotate(-45deg)'
             }}
           >
-            {value}
+            {truncateStr(value)}
           </text>
         </g>
       ))}

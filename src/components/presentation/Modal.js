@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDom from 'react-dom'
+import { createPortal } from 'react-dom'
 import '../../css/Modal.css'
 
 export default function Modal({ children, isOpen, onClose }) {
@@ -7,7 +7,7 @@ export default function Modal({ children, isOpen, onClose }) {
 
   // console.log(data)
   
-  return ReactDom.createPortal(
+  return createPortal(
     <>
       <div className='overlay' />
       <div className='modal'>

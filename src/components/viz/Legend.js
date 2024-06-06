@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Legend({ color, ...chartProps }) {
-  console.log(color)
   const domain = color.domain()
   const legendSpacing = 15
   const legendRectSize = 15
@@ -25,7 +24,6 @@ export default function Legend({ color, ...chartProps }) {
             x={legendPosition.x + legendRectSize + 5}
             y={legendPosition.y + (i * legendSpacing) + (legendRectSize / 2)}
             dy='0.35em'
-            style={{ fontSize: '10px' }}
           >
             {d}
           </text>
