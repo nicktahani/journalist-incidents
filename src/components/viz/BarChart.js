@@ -5,8 +5,10 @@ import { extent, max } from 'd3-array';
 import Axis from './Axis'
 // import { axisBottom, axisLeft } from 'd3-axis';
 import AxisLeft from './AxisLeft';
+import { useTooltipContext } from '../../contexts/TooltipContext'
 
 export default function BarChart({ data }) {
+  const { handlePointerEnter, handlePointerLeave } = useTooltipContext()
   const chartData = Object.entries(data)
 
   const xScale = scaleBand()
@@ -29,6 +31,8 @@ export default function BarChart({ data }) {
             height={yScale(0) - yScale(d[1])}
             width={xScale.bandwidth()}
             fill='steelblue'
+            onPointerMove={e => handlePointerEnter(e, d[1])}
+            onPointerLeave={handlePointerLeave}
           />
         ))}
         <g transform={`translate(0, ${height - margin.bottom - margin.top})`}>
